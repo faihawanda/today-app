@@ -1,37 +1,64 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news_app/providers/headlines_provider.dart';
 
 import '../../../../core/constants/news_category.dart';
 
-/// TODO: Ubah CategoryChips menjadi ConsumerWidget saat Riverpod ditambahkan
-class CategoryChips extends StatefulWidget {
+class CategoryChips extends ConsumerWidget {
   const CategoryChips({super.key});
 
   @override
-  State<CategoryChips> createState() => _CategoryChipsState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
-class _CategoryChipsState extends State<CategoryChips> {
-  // State sementara sebelum menggunakan Provider
-  NewsCategory _selected = NewsCategory.general;
-
-  @override
-  Widget build(BuildContext context) {
     const categories = NewsCategory.values;
+    final selected = ref.watch(selectedCategoryProvider);
 
     return SizedBox(
-      height: 56,
+      height: 54,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 5,
+        ),
         itemCount: categories.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 8),
+        separatorBuilder: (_, _) => const SizedBox(width: 9),
         itemBuilder: (context, index) {
           final category = categories[index];
+          final isSelected = category == selected;
+
           return ChoiceChip(
             label: Text(category.label),
-            selected: category == _selected,
+            selected: isSelected,
             showCheckmark: false,
-            onSelected: (_) => setState(() => _selected = category),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 7,
+            ),
+            labelStyle: TextStyle(
+              fontSize: 13,
+              fontWeight: isSelected
+                  ? FontWeight.w600
+                  : FontWeight.w500,
+              color: isSelected
+                  ? Colors.white
+                  : theme.colorScheme.onSurface,
+            ),
+            backgroundColor: theme.colorScheme.surface,
+            selectedColor: isDark
+                ? const Color(0xFFFA5536)
+                : const Color(0xFF0B0B0B),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            onSelected: (_) {
+              ref
+                  .read(selectedCategoryProvider.notifier)
+                  .select(category);
+            },
           );
         },
       ),

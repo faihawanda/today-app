@@ -1,34 +1,38 @@
+
 import 'package:intl/intl.dart';
 
-/// Helper format tanggal berbahasa Indonesia.
+/// Helper for formatting dates in English.
 class DateFormatter {
   DateFormatter._();
 
-  static const String _locale = 'id_ID';
+  static const String _locale = 'en_US';
 
-  /// Contoh: "5 menit lalu", "3 jam lalu", "12 Okt 2026".
+  /// Examples: "Just now", "5 minutes ago", "3 hours ago".
   static String relative(DateTime? date) {
     if (date == null) return '';
+
     final local = date.toLocal();
     final diff = DateTime.now().difference(local);
 
-    if (diff.inMinutes < 1) return 'Baru saja';
-    if (diff.inMinutes < 60) return '${diff.inMinutes} menit lalu';
-    if (diff.inHours < 24) return '${diff.inHours} jam lalu';
-    if (diff.inDays < 7) return '${diff.inDays} hari lalu';
-    return DateFormat('d MMM yyyy', _locale).format(local);
+    if (diff.inMinutes < 1) return 'Just now';
+    if (diff.inMinutes < 60) return '${diff.inMinutes} minutes ago';
+    if (diff.inHours < 24) return '${diff.inHours} hours ago';
+    if (diff.inDays < 7) return '${diff.inDays} days ago';
+
+    return DateFormat('MMM d, yyyy', _locale).format(local);
   }
 
-  /// Contoh: "Rabu, 7 Oktober 2026 • 22:40".
+  /// Example: "Wednesday, October 7, 2026 • 22:40".
   static String full(DateTime? date) {
     if (date == null) return '';
+
     return DateFormat(
-      'EEEE, d MMMM yyyy • HH:mm',
+      'EEEE, MMMM d, yyyy • HH:mm',
       _locale,
     ).format(date.toLocal());
   }
 
-  /// Contoh: "Rabu, 7 Oktober".
+  /// Example: "Saturday, November 14".
   static String today() =>
-      DateFormat('EEEE, d MMMM', _locale).format(DateTime.now());
+      DateFormat('EEEE, MMMM d', _locale).format(DateTime.now());
 }

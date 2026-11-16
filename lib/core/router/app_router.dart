@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constants/news_category.dart';
+import 'package:news_app/ui/screens/search/category_news_screen.dart';
 
 import '../../data/models/article.dart';
 import '../../ui/screens/detail/article_detail_screen.dart';

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "113615405147",
+    "project_id": "today-newsapp",
+    "storage_bucket": "today-newsapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113615405147:android:63d15a8e1f018e323b3f7e",
+        "android_client_info": {
+          "package_name": "com.example.news_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdkn8A98lxfVzvWej94GZB5BQQHHcOqPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

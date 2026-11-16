@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../data/models/article.dart';
 
-/// Ringkasan + cuplikan isi artikel.
+/// Summary + snippet of the article content.
 ///
-/// NewsAPI hanya mengembalikan ±200 karakter konten, jadi kita tampilkan
-/// catatan agar user membaca versi lengkap di situs sumber.
+/// NewsAPI only returns ~200 characters of content, so we show a note
+/// asking the user to read the full version on the source site.
 class DetailContent extends StatelessWidget {
   const DetailContent({super.key, required this.article});
 
@@ -26,28 +26,41 @@ class DetailContent extends StatelessWidget {
             description,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w500,
+              fontSize: 18,
               height: 1.5,
             ),
           ),
         if (content.isNotEmpty && content != description) ...[
           const SizedBox(height: 16),
-          Text(content, style: theme.textTheme.bodyLarge),
+          Text(
+            content,
+            style: theme.textTheme.bodyLarge?.copyWith(
+              fontSize: 16,
+              height: 1.6,
+            ),
+          ),
         ],
-        const SizedBox(height: 24),
-        Card.filled(
-          color: scheme.surfaceContainerHigh,
-          margin: EdgeInsets.zero,
-          child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 4,
-            ),
-            leading: Icon(Icons.info_outline_rounded, color: scheme.primary),
-            title: Text(
-              'Ini adalah cuplikan. Baca artikel lengkap di situs '
-              '${article.sourceName}.',
-              style: theme.textTheme.bodyMedium,
-            ),
+        const SizedBox(height: 28),
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: scheme.surfaceContainer,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: scheme.outline.withValues(alpha: 0.4)),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.info_outline_rounded, color: scheme.primary),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'This is a preview. Read the full article on '
+                  '${article.sourceName}.',
+                  style: theme.textTheme.bodyMedium,
+                ),
+              ),
+            ],
           ),
         ),
       ],

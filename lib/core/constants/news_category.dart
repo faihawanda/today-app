@@ -1,12 +1,12 @@
 /// Kategori berita yang didukung oleh endpoint top-headlines NewsAPI.
 enum NewsCategory {
-  general('Utama'),
-  business('Bisnis'),
-  technology('Teknologi'),
-  science('Sains'),
-  health('Kesehatan'),
-  sports('Olahraga'),
-  entertainment('Hiburan');
+  general('General'),
+  business('Business'),
+  technology('Technology'),
+  science('Science'),
+  health('Health'),
+  sports('Sports'),
+  entertainment('Entertainment');
 
   const NewsCategory(this.label);
 

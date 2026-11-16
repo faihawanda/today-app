@@ -15,9 +15,9 @@ class BookmarkItem extends StatelessWidget {
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
-          content: const Text('Dihapus dari Tersimpan'),
+          content: const Text('Removed from Saved'),
           action: SnackBarAction(
-            label: 'Urungkan',
+            label: 'Undo',
             onPressed: () {
               // TODO: Panggil notifier.toggle(article) lagi
             },
@@ -28,7 +28,8 @@ class BookmarkItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
 
     return Dismissible(
       key: ValueKey(article.url),
@@ -38,9 +39,22 @@ class BookmarkItem extends StatelessWidget {
         color: scheme.errorContainer,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Icon(
-          Icons.delete_outline_rounded,
-          color: scheme.onErrorContainer,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Remove',
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontSize: 15,
+                color: scheme.onErrorContainer,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Icon(
+              Icons.delete_outline_rounded,
+              color: scheme.onErrorContainer,
+            ),
+          ],
         ),
       ),
       child: ArticleTile(article: article),

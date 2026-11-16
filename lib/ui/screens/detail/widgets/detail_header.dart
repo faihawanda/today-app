@@ -4,7 +4,7 @@ import '../../../../core/utils/date_formatter.dart';
 import '../../../../data/models/article.dart';
 import '../../../widgets/source_label.dart';
 
-/// Judul artikel + info sumber, penulis, dan waktu terbit.
+/// Article title + source, author, and publish time.
 class DetailHeader extends StatelessWidget {
   const DetailHeader({super.key, required this.article});
 
@@ -23,17 +23,22 @@ class DetailHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SourceLabel(name: article.sourceName),
-        const SizedBox(height: 8),
-        Text(article.title, style: theme.textTheme.headlineSmall),
+        const SizedBox(height: 10),
+        Text(
+          article.title,
+          style: theme.textTheme.headlineSmall?.copyWith(height: 1.25),
+        ),
         const SizedBox(height: 20),
         Row(
           children: [
             CircleAvatar(
               radius: 20,
-              backgroundColor: scheme.primaryContainer,
+              backgroundColor: scheme.primary.withValues(alpha: 0.12),
               child: Text(
                 byline.characters.first.toUpperCase(),
-                style: TextStyle(color: scheme.onPrimaryContainer),
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: scheme.primary,
+                ),
               ),
             ),
             const SizedBox(width: 12),
@@ -45,13 +50,12 @@ class DetailHeader extends StatelessWidget {
                     byline,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.labelLarge,
+                    style: theme.textTheme.titleMedium?.copyWith(fontSize: 15),
                   ),
+                  const SizedBox(height: 2),
                   Text(
                     DateFormatter.full(article.publishedAt),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: scheme.onSurfaceVariant,
-                    ),
+                    style: theme.textTheme.bodySmall,
                   ),
                 ],
               ),

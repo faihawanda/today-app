@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news_app/providers/search_provider.dart';
 
-/// TODO: Ubah SearchSuggestions menjadi ConsumerWidget
-class SearchSuggestions extends StatelessWidget {
+import 'category_grid.dart';
+
+class SearchSuggestions extends ConsumerWidget {
   const SearchSuggestions({super.key});
 
   static const _topics = [
@@ -16,13 +19,15 @@ class SearchSuggestions extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
 
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text('Topik populer', style: theme.textTheme.titleSmall),
+        const CategoryGrid(),
+        const SizedBox(height: 24),
+        Text('Popular Topics', style: theme.textTheme.titleMedium),
         const SizedBox(height: 12),
         Wrap(
           spacing: 8,
@@ -30,10 +35,12 @@ class SearchSuggestions extends StatelessWidget {
           children: [
             for (final topic in _topics)
               ActionChip(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 avatar: const Icon(Icons.trending_up_rounded, size: 18),
                 label: Text(topic),
+                backgroundColor: theme.colorScheme.surfaceContainer,
                 onPressed: () {
-                  // TODO: submit topik ke searchQueryProvider
+                  ref.read(searchQueryProvider.notifier).submit(topic);
                 },
               ),
           ],
