@@ -26,3 +26,4 @@ Kamu akan diinstruksikan oleh Trainer untuk mengisi file-file berikut secara ber
 Terdapat banyak komentar bertuliskan `// TODO:` di dalam kode. Ikuti panduan modul dan kerjakan TODO tersebut langkah demi langkah.
 
 Semangat belajar dan Happy Coding! 🚀
+# today-app
