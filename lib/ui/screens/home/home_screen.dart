@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_app/providers/headlines_provider.dart';
 
-import 'widgets/category_chips.dart';
 import 'widgets/headlines_section.dart';
 import 'widgets/home_app_bar.dart';
 
